@@ -30,8 +30,34 @@ const findCustomer = async () => {
     console.log(result[0]);
 };
 
-findCustomer();
+// findCustomer();
 
+const addCust = async () => {
+    let newCust = new Customer({
+        name: "Karan Arjun"
+    });
+
+    let newOrder = new Order({
+        item: "Pizza",
+        price: 250
+    });
+
+    newCust.orders.push(newOrder);
+
+    await newOrder.save();
+    await newCust.save();
+
+    console.log("added new customer");
+};
+
+// addCust();
+
+const delCust = async () => {
+    let data = await  Customer.findByIdAndDelete('69eb4765196e20ebea2f8510');
+    console.log(data);
+};
+
+delCust();
 
 // const addCustomer = async () => {
 //     let cust1 = new Customer({
