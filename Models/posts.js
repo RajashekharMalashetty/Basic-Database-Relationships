@@ -31,10 +31,7 @@ const Post = mongoose.model("Post", postSchema);
 //         content: "Bye Bye :)",
 //         likes: 23,
 //     });
-
-//     post2.user = user;
-
-    
+//     post2.user = user;   
 //     await post2.save();
 // };
 
