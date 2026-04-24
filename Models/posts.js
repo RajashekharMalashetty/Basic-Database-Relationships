@@ -21,3 +21,28 @@ const postSchema = new Schema({
     }
 });
 
+const User = mongoose.model("User", userSchema);
+const Post = mongoose.model("Post", postSchema);
+
+// const addData = async () => {
+//     let user = await User.findOne({username: "rahulkumar"});
+
+//     let post2 = new Post({
+//         content: "Bye Bye :)",
+//         likes: 23,
+//     });
+
+//     post2.user = user;
+
+    
+//     await post2.save();
+// };
+
+// addData();
+
+const  getData = async () => {
+    let result = await Post.findOne({}).populate("user", "username");
+    console.log(result);
+};
+
+getData();
