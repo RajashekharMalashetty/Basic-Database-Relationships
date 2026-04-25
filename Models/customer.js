@@ -22,12 +22,15 @@ const customerSchema = new Schema({
     ],
 });
 
-customerSchema.pre("findOneAndDelete", async() => {
-    console.log("PRE MIDDLEWARE");
-});
+// customerSchema.pre("findOneAndDelete", async() => {
+//     console.log("PRE MIDDLEWARE");
+// });
 
-customerSchema.post("findOneAndDelete", async() => {
-    console.log("POST MIDDLEWARE");
+customerSchema.post("findOneAndDelete", async (customer) => {
+    if(customer.orders.length) {
+        let res = await Order.deleteMany({_id: { $in: customer.orders}});
+        console.log(res);
+    }
 });
 
 
@@ -59,14 +62,14 @@ const addCust = async () => {
     console.log("added new customer");
 };
 
-addCust();
+// addCust();
 
 const delCust = async () => {
-    let data = await  Customer.findByIdAndDelete('69eb4765196e20ebea2f8510');
+    let data = await Customer.findByIdAndDelete('69eca5004c386634a86ea488');
     console.log(data);
 };
 
-// delCust();
+delCust();
 
 // const addCustomer = async () => {
 //     let cust1 = new Customer({
