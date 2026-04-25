@@ -22,6 +22,15 @@ const customerSchema = new Schema({
     ],
 });
 
+customerSchema.pre("findOneAndDelete", async() => {
+    console.log("PRE MIDDLEWARE");
+});
+
+customerSchema.post("findOneAndDelete", async() => {
+    console.log("POST MIDDLEWARE");
+});
+
+
 const Order = mongoose.model("Order", orderSchema);
 const Customer = mongoose.model("Customer", customerSchema);
 
@@ -38,7 +47,7 @@ const addCust = async () => {
     });
 
     let newOrder = new Order({
-        item: "Pizza",
+        item: "Burger",
         price: 250
     });
 
@@ -50,14 +59,14 @@ const addCust = async () => {
     console.log("added new customer");
 };
 
-// addCust();
+addCust();
 
 const delCust = async () => {
     let data = await  Customer.findByIdAndDelete('69eb4765196e20ebea2f8510');
     console.log(data);
 };
 
-delCust();
+// delCust();
 
 // const addCustomer = async () => {
 //     let cust1 = new Customer({
